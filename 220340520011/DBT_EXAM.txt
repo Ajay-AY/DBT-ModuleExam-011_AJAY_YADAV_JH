@@ -1,0 +1,172 @@
+
+				SECTION I
+		Q1 )
+			 create table DEPT
+				(
+					DEPTNO INT(2),
+					DNAME VARCHAR(15),
+					LOC VARCHAR(10)
+				);
+
+			insert into dept values
+			(10,'ACCOUNTING','NEW YORK'),
+			(20,'RESEARCH','DALLAS'),
+			(30,'SALES','CHICAGO'),
+			(40,'OPERATIONS','BOSTAN');
+
+		Q2) 
+			CREATE TABLE EMP
+				(
+				  EMPNO INT(4),
+				  ENAME VARCHAR(10),
+				  JOB VARCHAR(9),
+				  HIREDATE DATE,
+				  SAL FLOAT(7,2),
+				  COMM FLOAT(7,2),
+				  DEPTNO INT(2)
+				);
+
+
+			INSERT INTO EMP VALUES
+				(7839,'KING','MANAGER','1991-11-17',5000,NULL,10),
+				(7698,'BLAKE','CLERK','1981-05-01',2850,NULL,30),
+				(7782,'CLARK','MANAGER','1981-06-09',2450,NULL,10),
+				(7566,'JONES','CLERK','1981-04-02',2975,NULL,20),
+				(7654,'MARTIN','SALESMAN','1981-09-28',1250,1400,30),
+				(7499,'ALLEN','SALESMAN','1981-02-20',1600,300,30);
+				
+				
+
+		Q3) 
+
+			 select * from emp
+				where sal between 2500 and 5000;
+
+				7839	KING	MANAGER	1991-11-17	5000.00		10
+				7698	BLAKE	CLERK	1981-05-01	2850.00		30
+				7566	JONES	CLERK	1981-04-02	2975.00		20
+				
+				
+		Q4) 
+			  SELECT ENAME FROM EMP
+					ORDER BY 1 DESC;
+				
+					MARTIN
+					KING
+					JONES
+					CLARK
+					BLAKE
+					ALLEN
+
+		Q5)
+				SELECT LOWER(JOB) FROM EMP;
+				
+				manager
+				clerk
+				manager
+				clerk
+				salesman
+				salesman
+				
+		Q6 	
+				SELECT ENAME,LENGTH(ENAME) FROM EMP;
+				
+				KING	4
+				BLAKE	5
+				CLARK	5
+				JONES	5
+				MARTIN	6
+				ALLEN	5
+				
+				
+		Q7 	
+				
+				SELECT EMP.DEPTNO,COUNT(*) FROM EMP,DEPT
+					WHERE DEPT.DEPTNO = EMP.DEPTNO
+						GROUP BY 1;
+						
+						10	2
+						30	3
+						20	1
+						
+						
+		Q8)
+				SELECT DNAME,ENAME FROM EMP,dept	
+					WHERE EMP.DEPTNO = DEPT.DEPTNO;
+					
+					ACCOUNTING	KING
+					SALES		BLAKE
+					ACCOUNTING	CLARK
+					RESEARCH	JONES
+					SALES		MARTIN
+					SALES		ALLEN
+					
+					
+		Q9) 
+				SELECT INSTR(ENAME,'AR') FROM EMP;
+				
+				0
+				0
+				3
+				0
+				2
+				0
+				
+				
+				
+		Q10)
+				SELECT SAL*0.2 "HRA" FROM EMP;
+				
+				1000.00
+				570.00
+				490.00
+				595.00
+				250.00
+				320.00
+				
+				
+					SECTION II
+					
+		Q1) 
+					CREATE TABLE TEMP
+					(
+					 FIRSTNAME VARCHAR(25),
+					 SECONDNAME VARCHAR(25),
+					 CONTAINS_STRING VARCHAR(5)
+					);
+
+
+				delimiter //
+				create procedure PROC1(string1 varchar(25),string2 varchar(25))
+				begin
+						
+					
+			 if substr(string2,1) = substr(string1,1) OR substr(string2,2) = substr(string1,1) OR substr(string2,3) = substr(string1,1) then
+								insert into temp values (string1,string2,'YES');
+							else 
+								 insert into temp values (string1,string2,'NO');
+				
+				end if;
+				end ; //
+				delimiter ;
+				
+				
+				 
+				
+				
+				
+		Q2  
+				
+					delimiter //
+					create function FUNC1(a float,b float,c float)
+					returns boolean
+					deterministic
+					begin
+								if (a+b)>c or (a+c)>b or (b+c)>a then
+								return TRUE;
+							else 
+							return FALSE;
+							
+							end if;
+						end; //
+						delimiter ;
